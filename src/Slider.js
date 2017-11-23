@@ -112,6 +112,11 @@ export default class Slider extends PureComponent {
     ),
 
     /**
+     * function to return a react element
+     */
+    trackView: PropTypes.func,
+
+    /**
      * Callback continuously called while the user is dragging the slider.
      */
     onValueChange: PropTypes.func,
@@ -259,7 +264,9 @@ export default class Slider extends PureComponent {
           onLayout={this._measureTrack} />
         <Animated.View
           renderToHardwareTextureAndroid={true}
-          style={[mainStyles.track, trackStyle, minimumTrackStyle]} />
+          style={[mainStyles.track, trackStyle, minimumTrackStyle]}>
+            {this.props.trackView ? this.props.trackView() : null}
+        </Animated.View>
         <Animated.View
           onLayout={this._measureThumb}
           renderToHardwareTextureAndroid={true}
